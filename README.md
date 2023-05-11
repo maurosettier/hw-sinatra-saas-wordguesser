@@ -64,9 +64,8 @@ Have docker installed into the machine
 
 In order to use the docker image you first must compile it using the following commad:
 
-docker build -t <tag-name> .
+docker build -t [tag-name] .
 
 Then just run the image exposing port 3000
 
-docker run -p 3000:9292 <tag-name>
-
+docker run -p 3000:9292 [tag-name]
