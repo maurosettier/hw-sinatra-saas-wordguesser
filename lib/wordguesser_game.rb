@@ -29,7 +29,25 @@ class WordGuesserGame
 
   end
 
+  def create_word_with_guesses
+    word_with_guesses = ''
+    @word.each_char do |letter|
+      if @guesses.include? letter
+        word_with_guesses += letter
+      else
+        word_with_guesses += '-'
+      end      
+    end
+    word_with_guesses
+  end
   
+  def check_win_or_lose
+    
+    return :win if self.create_word_with_guesses == @word
+    return :lose if @wrong_guesses.length == 7
+    
+    :play
+  end
 
   # You can test it by installing irb via $ gem install irb
   # and then running $ irb -I. -r app.rb
