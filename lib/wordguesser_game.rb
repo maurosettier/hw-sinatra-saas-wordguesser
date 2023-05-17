@@ -28,7 +28,7 @@ class WordGuesserGame
     true
   end
 
-  def create_word_with_guesses
+  def word_with_guesses
     word_with_guesses = ''
     @word.each_char do |letter|
       if @guesses.include? letter
@@ -42,7 +42,7 @@ class WordGuesserGame
   
   def check_win_or_lose
     
-    return :win if self.create_word_with_guesses == @word
+    return :win if self.word_with_guesses == @word
     return :lose if @wrong_guesses.length == 7
     
     :play
