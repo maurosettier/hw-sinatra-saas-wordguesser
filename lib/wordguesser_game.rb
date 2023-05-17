@@ -16,17 +16,16 @@ class WordGuesserGame
 
     raise ArgumentError if letter.nil? || letter == '' || !letter.match?(/[A-Z]/i)
 
-    letter = letter.downcase
+    dc_letter = letter.downcase
 
-    if @word.include?(letter)
-       return false if @guesses.include?(letter)
-       @guesses += letter
+    if @word.include?(dc_letter)
+       return false if @guesses.include?(dc_letter)
+       @guesses += dc_letter
     else
-       return false if @wrong_guesses.include?(letter)
-        @wrong_guesses += letter
+       return false if @wrong_guesses.include?(dc_letter)
+        @wrong_guesses += dc_letter
     end
     true
-
   end
 
   def create_word_with_guesses
