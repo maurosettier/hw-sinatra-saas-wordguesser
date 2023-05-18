@@ -52,6 +52,7 @@ class WordGuesserApp < Sinatra::Base
       redirect '/lose' if game_state == :lose
       redirect '/show'
     end  
+    
   end
   
   # Everytime a guess is made, we should eventually end up at this route.
