@@ -40,6 +40,9 @@ class WordGuesserApp < Sinatra::Base
   post '/guess' do
     letter = params[:guess].to_s[0]
     @game.guess(letter)
+    game_state = @game.check_win_or_lose
+    redirect '/win' if game_state == :win
+    redirect '/lose' if game_state == :lose
     redirect '/show'
   end
   
