@@ -38,12 +38,20 @@ class WordGuesserApp < Sinatra::Base
   # If a guess is repeated, set flash[:message] to "You have already used that letter."
   # If a guess is invalid, set flash[:message] to "Invalid guess."
   post '/guess' do
-    letter = params[:guess].to_s[0]
-    @game.guess(letter)
-    game_state = @game.check_win_or_lose
-    redirect '/win' if game_state == :win
-    redirect '/lose' if game_state == :lose
-    redirect '/show'
+    begin
+      letter = params[:guess].to_s[0]
+      flash[:message] = "Already used letter" unless @game.guess(letter) 
+           
+      
+    rescue => ArgumentError
+      flash[:message] = "Not valid guess"
+    
+    ensure
+      game_state = @game.check_win_or_lose 
+      redirect '/win' if game_state == :win
+      redirect '/lose' if game_state == :lose
+      redirect '/show'
+    end  
   end
   
   # Everytime a guess is made, we should eventually end up at this route.
@@ -52,7 +60,7 @@ class WordGuesserApp < Sinatra::Base
   # Notice that the show.erb template expects to use the instance variables
   # wrong_guesses and word_with_guesses from @game.
   get '/show' do
-    ### YOUR CODE HERE ###
+    redirect '/new' if @game.word.nil? || @game.word == ""
     erb :show # You may change/remove this line
   end
   
