@@ -44,7 +44,7 @@ class WordGuesserApp < Sinatra::Base
            
       
     rescue => ArgumentError
-      flash[:message] = "Not valid guess"
+      flash[:message] = "Invalid guess."
     
     ensure
       game_state = @game.check_win_or_lose 
