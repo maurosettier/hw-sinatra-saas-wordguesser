@@ -40,7 +40,7 @@ class WordGuesserApp < Sinatra::Base
   post '/guess' do
     begin
       letter = params[:guess].to_s[0]
-      flash[:message] = "Already used letter" unless @game.guess(letter) 
+      flash[:message] = "You have already used that letter" unless @game.guess(letter) 
            
       
     rescue => ArgumentError
