@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WordGuesserGame
   attr_accessor :word, :guesses, :wrong_guesses
 
@@ -11,19 +13,20 @@ class WordGuesserGame
     @guesses = ''
     @wrong_guesses = ''
   end
-  
-  def guess(letter)
 
+  def guess(letter)
     raise ArgumentError if letter.nil? || letter == '' || !letter.match?(/[A-Z]/i)
 
     dc_letter = letter.downcase
 
     if @word.include?(dc_letter)
-       return false if @guesses.include?(dc_letter)
-       @guesses += dc_letter
+      return false if @guesses.include?(dc_letter)
+
+      @guesses += dc_letter
     else
-       return false if @wrong_guesses.include?(dc_letter)
-        @wrong_guesses += dc_letter
+      return false if @wrong_guesses.include?(dc_letter)
+
+      @wrong_guesses += dc_letter
     end
     true
   end
@@ -31,20 +34,19 @@ class WordGuesserGame
   def word_with_guesses
     word_with_guesses = ''
     @word.each_char do |letter|
-      if @guesses.include? letter
-        word_with_guesses += letter
-      else
-        word_with_guesses += '-'
-      end      
+      word_with_guesses += if @guesses.include? letter
+                             letter
+                           else
+                             '-'
+                           end
     end
     word_with_guesses
   end
-  
+
   def check_win_or_lose
-    
-    return :win if self.word_with_guesses == @word
+    return :win if word_with_guesses == @word
     return :lose if @wrong_guesses.length >= 7
-    
+
     :play
   end
 
@@ -56,9 +58,8 @@ class WordGuesserGame
     require 'uri'
     require 'net/http'
     uri = URI('http://randomword.saasbook.info/RandomWord')
-    Net::HTTP.new('randomword.saasbook.info').start { |http|
-      return http.post(uri, "").body
-    }
+    Net::HTTP.new('randomword.saasbook.info').start do |http|
+      return http.post(uri, '').body
+    end
   end
-
 end

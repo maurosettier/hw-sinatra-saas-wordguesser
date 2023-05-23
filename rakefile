@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+desc 'Run test'
+task :test do
+  sh 'bundle exec autotest'
+end
